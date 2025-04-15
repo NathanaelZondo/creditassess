@@ -1,0 +1,85 @@
+<ng-container *ngIf="state$ | async as state">
+  <div
+    *ngIf="
+      state.isQualified !== null && state.userData && state.creditData;
+      else loadingOrError
+    "
+  >
+    <article
+      class="outcome-card"
+      [ngClass]="{
+        qualified: state.isQualified,
+        'not-qualified': !state.isQualified
+      }"
+    >
+      <header>
+        <h2>Credit Evaluation Outcome</h2>
+        <p>Result for {{ state.userData.name }} {{ state.userData.surname }}</p>
+      </header>
+      <section>
+        <div
+          *ngIf="state.isQualified; else notQualified"
+          class="outcome-message qualified-message"
+        >
+          <mat-icon>check_circle</mat-icon>
+          <h2>Congratulations! You Qualify.</h2>
+          <p>
+            Your expenses (R{{ state.creditData.expenses | number : "1.2-2" }})
+            are within 50% of both your net salary (R{{
+              state.creditData.netSalary | number : "1.2-2"
+            }}) and gross salary (R{{
+              state.creditData.grossSalary | number : "1.2-2"
+            }}).
+          </p>
+        </div>
+
+        <ng-template #notQualified>
+          <div class="outcome-message not-qualified-message">
+            <mat-icon>cancel</mat-icon>
+            <h2>Unfortunately, You Do Not Qualify at This Time.</h2>
+            <div *ngIf="reasons$ | async as reasons" class="reasons-list">
+              <p>Reason(s):</p>
+              <ul role="list">
+                <li role="listitem" *ngFor="let reason of reasons">
+                  {{ reason }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="summary-details">
+          <h4>Summary:</h4>
+          <p>
+            <strong>Gross Salary:</strong> R{{
+              state.creditData.grossSalary | number : "1.2-2"
+            }}
+          </p>
+          <p>
+            <strong>Net Salary:</strong> R{{
+              state.creditData.netSalary | number : "1.2-2"
+            }}
+          </p>
+          <p>
+            <strong>Expenses:</strong> R{{
+              state.creditData.expenses | number : "1.2-2"
+            }}
+          </p>
+        </div>
+      </section>
+      <footer>
+        <br />
+        <button (click)="startNewEvaluation()">Start New Evaluation</button>
+      </footer>
+    </article>
+  </div>
+</ng-container>
+
+<ng-template #loadingOrError>
+  <article class="outcome-card">
+    <section>
+      <p>Loading evaluation results or required data is missing...</p>
+      <button (click)="startNewEvaluation()">Go to Registration</button>
+    </section>
+  </article>
+</ng-template>

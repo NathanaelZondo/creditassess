@@ -1,0 +1,115 @@
+<header *ngIf="userName$ | async as name" class="toolbar">
+    <h1>Evaluating Credit for: {{ name }}</h1>
+  </header>
+  
+  <article class="evaluation-card">
+    <header>
+      <h2>Credit Evaluation</h2>
+      <p>Please enter your financial details (Monthly)</p>
+    </header>
+  
+    <form
+      [formGroup]="creditForm"
+      (ngSubmit)="onSubmit()"
+      class="evaluation-form"
+    >
+      <div>
+        <label for="grossSalary">Gross Monthly Salary (R)</label>
+        <input
+          id="grossSalary"
+          formControlName="grossSalary"
+          placeholder="e.g., 30000.00"
+          type="number"
+          required
+          min="0"
+          step="0.01"
+        />
+        <div
+          class="error"
+          *ngIf="
+            grossSalary?.invalid && (grossSalary?.dirty || grossSalary?.touched)
+          "
+        >
+          <span *ngIf="grossSalary?.errors?.['required']"
+            >Gross salary is required.</span
+          >
+          <span *ngIf="grossSalary?.errors?.['min']"
+            >Gross salary cannot be negative.</span
+          >
+          <span *ngIf="grossSalary?.errors?.['pattern']"
+            >Please enter a valid amount (e.g., 30000 or 30000.50).</span
+          >
+        </div>
+      </div>
+  
+      <div>
+        <label for="netSalary">Net Monthly Salary (After Tax/Deductions) (R)</label>
+        <input
+          id="netSalary"
+          formControlName="netSalary"
+          placeholder="e.g., 22000.50"
+          type="number"
+          required
+          min="0"
+          step="0.01"
+        />
+        <div
+          class="error"
+          *ngIf="netSalary?.invalid && (netSalary?.dirty || netSalary?.touched)"
+        >
+          <span *ngIf="netSalary?.errors?.['required']"
+            >Net salary is required.</span
+          >
+          <span *ngIf="netSalary?.errors?.['min']"
+            >Net salary cannot be negative.</span
+          >
+          <span *ngIf="netSalary?.errors?.['pattern']"
+            >Please enter a valid amount (e.g., 22000 or 22000.50).</span
+          >
+          <span *ngIf="netSalary?.errors?.['netExceedsGross']"
+            >Net salary cannot be greater than gross salary.</span
+          >
+        </div>
+      </div>
+  
+      <div>
+        <label for="expenses">Total Monthly Expenses (R)</label>
+        <input
+          id="expenses"
+          formControlName="expenses"
+          placeholder="e.g., 15000.00"
+          type="number"
+          required
+          min="0"
+          step="0.01"
+        />
+        <div
+          class="error"
+          *ngIf="expenses?.invalid && (expenses?.dirty || expenses?.touched)"
+        >
+          <span *ngIf="expenses?.errors?.['required']"
+            >Monthly expenses are required.</span
+          >
+          <span *ngIf="expenses?.errors?.['min']"
+            >Expenses cannot be negative.</span
+          >
+          <span *ngIf="expenses?.errors?.['pattern']"
+            >Please enter a valid amount (e.g., 15000 or 15000.75).</span
+          >
+        </div>
+      </div>
+  
+      <br />
+      <button
+        type="submit"
+        [disabled]="creditForm.invalid"
+        (click)="onSubmit()"
+      >
+        Evaluate Credit
+      </button>
+      <br />
+  
+      <button type="button" (click)="goBack()" class="second-button">Back</button>
+      <br />
+    </form>
+  </article>

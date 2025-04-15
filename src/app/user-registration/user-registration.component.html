@@ -1,0 +1,109 @@
+<section>
+  <article class="registration-card">
+    <header>
+      <h2>User Registration</h2>
+      <p>Please enter your details</p>
+    </header>
+    <section>
+      <form
+        [formGroup]="registrationForm"
+        (ngSubmit)="onSubmit()"
+        class="registration-form"
+      >
+        <div>
+          <label for="name">Name</label>
+          <input
+            id="name"
+            formControlName="name"
+            placeholder="Enter your first name"
+            required
+          />
+          <div
+            class="error"
+            *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+          >
+            <span *ngIf="name?.errors?.['required']">Name is required.</span>
+            <span *ngIf="name?.errors?.['minlength']"
+              >Name must be at least 2 characters long.</span
+            >
+          </div>
+        </div>
+
+        <div>
+          <label for="surname">Surname</label>
+          <input
+            id="surname"
+            formControlName="surname"
+            placeholder="Enter your last name"
+            required
+          />
+          <div
+            class="error"
+            *ngIf="surname?.invalid && (surname?.dirty || surname?.touched)"
+          >
+            <span *ngIf="surname?.errors?.['required']"
+              >Surname is required.</span
+            >
+            <span *ngIf="surname?.errors?.['minlength']"
+              >Surname must be at least 2 characters long.</span
+            >
+          </div>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email address"
+            type="email"
+            required
+          />
+          <div
+            class="error"
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          >
+            <span *ngIf="email?.errors?.['required']">Email is required.</span>
+            <span *ngIf="email?.errors?.['email']"
+              >Please enter a valid email address.</span
+            >
+          </div>
+        </div>
+
+        <div>
+          <label for="cellphone">Cellphone Number</label>
+          <input
+            id="cellphone"
+            formControlName="cellphone"
+            placeholder="e.g., 0821234567"
+            type="tel"
+            required
+          />
+          <div
+            class="error"
+            *ngIf="
+              cellphone?.invalid && (cellphone?.dirty || cellphone?.touched)
+            "
+          >
+            <span *ngIf="cellphone?.errors?.['required']"
+              >Cellphone number is required.</span
+            >
+            <span *ngIf="cellphone?.errors?.['pattern']"
+              >Please enter a valid 10-digit SA cellphone number (starting with
+              0).</span
+            >
+          </div>
+        </div>
+      </form>
+    </section>
+    <footer>
+      <button
+        type="submit"
+        [disabled]="registrationForm.invalid"
+        (click)="onSubmit()"
+      >
+        Next: Credit Evaluation
+      </button>
+    </footer>
+  </article>
+</section>
