@@ -1,0 +1,69 @@
+.evaluation-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.evaluation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.evaluation-form > div {
+  width: 100%; 
+}
+
+.evaluation-card > footer { 
+  padding-right: 0; 
+  padding-bottom: 0; 
+  display: flex; 
+  justify-content: flex-end; 
+  gap: 8px; 
+}
+
+.toolbar {
+  margin-bottom: 1rem;
+  margin-top: 50px;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  background-color: #122390;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+input {
+  height: 30px;
+  font-size: 18px;
+  padding: 5px; 
+  border: 1px solid #ccc; 
+  box-sizing: border-box;
+  width: 100%; 
+}
+
+.second-button {
+  color: white; 
+  background-color: black;
+}
+
+.error {
+  color: red; 
+  font-size: 0.9em;
+  margin-top: 5px;
+}
